@@ -1,14 +1,19 @@
 class UsersController < ApplicationController
     def new
-        @user = User.new
+        if logged_in?
+            redirect_to cats_url
+        else
+            @user = User.new
+            render :new
+        end
     end
 
     def create
         @user = User.new(user_params)
         if @user.save
-            render json: @user
+            redirect_to cats_url
         else
-            render json: @user.error.full_message, status: 422
+            render json: @user.errors.full_messages, status: 422
         end
     end
 

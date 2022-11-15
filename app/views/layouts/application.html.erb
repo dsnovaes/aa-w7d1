@@ -15,6 +15,11 @@
   <body>
     <nav class="main-nav">
       <h1><a href="<%= cats_url %>">99 Cats</a></h1>
+      <% if logged_in? %>
+      <p>Welcome, <%= current_user.username %>. <a href="<%= logout_user_url %>">Logout</a></p>
+      <% else %>
+      <p><a href="<%= new_session_url %>">Log in</a> • <a href="<%= new_user_url %>">Sign up</a></p>
+      <% end %>
     </nav>
     <main>
       <%= yield %>
